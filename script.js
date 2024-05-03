@@ -120,6 +120,11 @@ h1.lastElementChild.style.color = 'orangered';
 console.log(h1.parentNode);
 console.log(h1.parentElement);
 
+h1.closest('h1').style.backgroundColor = 'var (--gradient-secondary)'
+
+
+h1.closest('h1').style.backgroundColor = 'var (--gradient-primary)'
+
 // SELECTING SIBLINGS:
 // THE PREVIOUSELEMENT SIBLING WILL RETURN THE SIBLING BEFORE H1, IF NOT, THEN IT RETURNS NULL
 console.log(h1.previousElementSibling);
@@ -134,6 +139,39 @@ console.log(h1.parentElement.children);
 });
 // SO THAT'S ALL ABOUT DOM TRAVERSING.
 */
+
+// BUILDING A TABBED COMPONENT
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// APPLYING EVENT DELEGATION CONCEPT:
+// HOW DELEGATION CONCEPT WORK HERE ?
+tabsContainer.addEventListener('click', e => {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+
+  // GUARD CLAUSE
+  // IF NOT NULL (TRUE) RETURN TRUE.
+  // WHAT THE RETURN TRUE MEAN HERE ?
+  if (!clicked) return;
+
+  // HOW THE FOREACH METHOD WORKS HERE ?
+  // REMOVE THE ACTIVE CLASSES OF BOTH THE TABS AND THE TAB CONTENT
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // ACTIVE TAB
+  clicked.classList.add('operations__tab--active');
+
+  // ACTIVATE CONTENT AREA
+  // WHEN THE USER CLICKS ON EACH BUTTON, IT WILL SHOW THE REVELANT TAB CONTENT.
+  // HOW THE DATASET WORKS AND WHAT IS IT ?
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
 ///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////
