@@ -1,13 +1,16 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
+///////////////////////////////////////
+// Modal window
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -31,12 +34,6 @@ document.addEventListener('keydown', function (e) {
 });
 
 // LET'S ADD A SMOOTH SCROLLING :
-
-// SELECTING LEARN MORE BUTTON
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-// SELECTING THE NEXT AND FIRST SECTION DIV
-const section1 = document.querySelector('#section--1');
-
 // ADDING EVENT LISTENER TO BUTTON
 btnScrollTo.addEventListener('click', function (e) {
   // THE GETBOUNDINGREC METHOD , SHOWS THE OBJECT OF SCROLLING COORDS , IN WHICH X , Y COORDINATES ARE DEFINE , ALSO THE WIDTH AND HEIGHT INCLUDING THE TOP , BOTTOM , LEFT AND RIGHT AS WELL.
@@ -68,6 +65,41 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+///////////////////////////////////////
+// DAY 2ND
+
+// EVENT-DELEGATION: IMPLEMENTING PAGE NAVIGATION:
+
+// APPLYING SIMPLE EVENT-LISTENER TO THE ELEMENTS:
+// ATTACHING THE SAME EVENT LISTENER TO MULTIPLE ELEMENTS.
+// THIS EVENT WILL WORK PERFECTLY, BUT WHAT IF, WE HAVE MUCH MORE ELEMENTS WITH A CLASS NAME , IT WILL BECOME VERY HEAVY AND WILL LOAD TOO MUCH , WE HAVE A CONCEPT HERE , WHICH IS THE EVENT-DELEGATION
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     // IT WILL GET THE HREF ATTRIBUTE OUT OF THE NAV_LINK ELEMENT, SO WE CAN USE IT FOR SCROLLING.
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// 1. ADD EVENT LISTENER TO COMMON PARENT ELEMENT
+// 2. DETERMINE WHAT ELEMENT ORIGINATED THE EVENT
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // MATCHING STRATEGY:
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+
 // EVENT LISTENERS:
 // const h1 = document.querySelector('h1');
 
@@ -88,50 +120,50 @@ btnScrollTo.addEventListener('click', function (e) {
 // EVENT PROPAGATION IN PRACTICE:
 
 // CREATED A RANDOM INT'S GENERATOR FUNCTION
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
 
-// FUNCTION FOR RANDOM COLOR:
-const randomColor = () =>
-  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+// // FUNCTION FOR RANDOM COLOR:
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
-// ADDED EVENT LISTENER TO THE NAV LINK (CHILD OF THE NAV AND NAV-LINKS DIVS)
-document.querySelector('.nav__link').addEventListener('click', function (e) {
-  // WE SAID THAT , THE this IN EVENTLISTENER IS POINTING THE DOCUMENT ELEMENT ITSELF THAT IS CALLING THE EVENT
-  this.style.backgroundColor = randomColor();
-  // IT TARGETS THE ACUALL ELEMENT ON WHICH THE EVENT IS TARGETTED TOWARDS. THE OTHER ARE PARENTS SO THEY WILL ASLO BE TARGETTED BY THIS ONE EVENT , BECAUSE WE SAID THAT BEFORE OF BUBBLING
-  console.log('LINK ', e.target);
+// // ADDED EVENT LISTENER TO THE NAV LINK (CHILD OF THE NAV AND NAV-LINKS DIVS)
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   // WE SAID THAT , THE this IN EVENTLISTENER IS POINTING THE DOCUMENT ELEMENT ITSELF THAT IS CALLING THE EVENT
+//   this.style.backgroundColor = randomColor();
+//   // IT TARGETS THE ACUALL ELEMENT ON WHICH THE EVENT IS TARGETTED TOWARDS. THE OTHER ARE PARENTS SO THEY WILL ASLO BE TARGETTED BY THIS ONE EVENT , BECAUSE WE SAID THAT BEFORE OF BUBBLING
+//   console.log('LINK ', e.target);
 
-  // IT TARGETS THE CURRENT ELEMENT , IT IS LIKE AS THIS KEYWORD , WHICH TARGETS THE ELEMENT IN WHICH IT IS CALLED.
-  console.log(e.currentTarget);
+//   // IT TARGETS THE CURRENT ELEMENT , IT IS LIKE AS THIS KEYWORD , WHICH TARGETS THE ELEMENT IN WHICH IT IS CALLED.
+//   console.log(e.currentTarget);
 
-  // WE CAN ALSO STOP PROPAGATION AT CHILD DIV.
-  // IT WILL THEN ONLY TARGET THE ACTUAL CHILD DIV AND THE BUBBLING WILL STOP.
-  // BUT THAT'S NOT A GOOD IDEA TO STOP PROPAGATION.
-  e.stopPropagation();
-});
+//   // WE CAN ALSO STOP PROPAGATION AT CHILD DIV.
+//   // IT WILL THEN ONLY TARGET THE ACTUAL CHILD DIV AND THE BUBBLING WILL STOP.
+//   // BUT THAT'S NOT A GOOD IDEA TO STOP PROPAGATION.
+//   e.stopPropagation();
+// });
 
-// THE PARENT DIV OF THE NAV_LINK
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('CONTAINER ', e.target);
+// // THE PARENT DIV OF THE NAV_LINK
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER ', e.target);
 
-  console.log(e.currentTarget);
-});
+//   console.log(e.currentTarget);
+// });
 
-// THE PARENT DIV OF THE NAV_LINKS
-document.querySelector('.nav').addEventListener(
-  'click',
-  function (e) {
-    this.style.backgroundColor = randomColor();
-    console.log('NAV ', e.target);
+// // THE PARENT DIV OF THE NAV_LINKS
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log('NAV ', e.target);
 
-    console.log(e.currentTarget);
-  }
-  // true
-  // THIS TRUE HERE MEANS THAT , WE CAN KNOW ALSO HANDLE THE EVENT IN CAPTURE PHASE , AND IT WILL START FROM THE CAPTURE PHASE AS WELL(FROM THE ROOT OF THE DOCUMENT TO THE TARGET ELEMENT).
-  // BUT CAPTURE PHASE HANDLING IS NOT ANYMORE USED NOW A DAYS.
-  // AND THE REASON IS WHY THESE TWO PHASES STILL EXIST(CAPTURING & BUBBLING) IS SOME OF SOME HISTORICAL REASON , WHEN EVERY BROWSER USE DIFFERENT VERSION OF JAVASCRIPT.
-);
+//     console.log(e.currentTarget);
+//   }
+// true
+// THIS TRUE HERE MEANS THAT , WE CAN KNOW ALSO HANDLE THE EVENT IN CAPTURE PHASE , AND IT WILL START FROM THE CAPTURE PHASE AS WELL(FROM THE ROOT OF THE DOCUMENT TO THE TARGET ELEMENT).
+// BUT CAPTURE PHASE HANDLING IS NOT ANYMORE USED NOW A DAYS.
+// AND THE REASON IS WHY THESE TWO PHASES STILL EXIST(CAPTURING & BUBBLING) IS SOME OF SOME HISTORICAL REASON , WHEN EVERY BROWSER USE DIFFERENT VERSION OF JAVASCRIPT.
+// );
 // WHEN THE USER CLICKS ON A CHILD DIV , THE COLOR OF THIER PARENT DIVS ALSO CHANGES , BUT WHEN THE USER CLICKS ON ONE THE PARENT DIVS , IT WILL CHANGED ITSELF.
 // THIS IS THE REAL EXAMPLE OF HOW BUUBLING IN EVENT PROPAGATION WORKS, BECAUSE  BUBBLING IS THE CONCEPT IN WHICH THE TARGET EVENT(CHILD DIV EVENT) MAY HAVE THE EVENT OF THIER PARENT DIV AS WELL, MEANS THE EVENT ON CHILD DIV IS ALSO THE EVENT OF THIER PARENT DIV , AND IT WORKS IN THE LINEAR WAY.
