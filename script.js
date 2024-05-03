@@ -8,6 +8,10 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 ///////////////////////////////////////
 // Modal window
@@ -141,9 +145,6 @@ console.log(h1.parentElement.children);
 */
 
 // BUILDING A TABBED COMPONENT
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
 
 // APPLYING EVENT DELEGATION CONCEPT:
 // HOW DELEGATION CONCEPT WORK HERE ?
@@ -171,6 +172,27 @@ tabsContainer.addEventListener('click', e => {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+// PASSING ARGUMENTS TO EVENT HANDLERS:
+
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+// MENU FADE ANIMATION:
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+// IT WILL UNDO THE OPACITY TO 1
+nav.addEventListener('mouseout', handleHover.bind(1));
 
 ///////////////////////////////////////
 ///////////////////////////////////////
