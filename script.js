@@ -95,6 +95,45 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+/*
+// DOM TRAVERSING:
+// DOM TRAVERSING IS BASICALLY WALKING THROUGH THE DOM, IT MEANS WE CAN SELECT AN ELEMENT BASED ON ANOTHER ELEMENT.
+// SOMETIMES, WE NEED TO SELECT ELEMENTS RELATIVE TO A CERTAIN OTHER ELEMENT SUCH AS DIRECT CHILD OR DIRECT PARENT ELEMENT
+
+const h1 = document.querySelector('h1');
+// GOING DOWNWARDS: CHILD
+// THE QUERYSELECTOR WILL FIND ALL THE CHILDS EVEN THEY ARE SO FAR.
+console.log(h1.querySelectorAll('.highlight'));
+// THE CHILDNODES WILL RETURN A NODELIST OF ALL THE ELEMENTS INCLUDING THIER TEXT.
+console.log(h1.childNodes);
+//  THE CHILDREN WILL DIRECTLY TARGET EACH CHILDREN ELEMENT OF ELEMENT.
+console.log(h1.children);
+// THE FIRST-ELEMENT-CHILD RETURNS THE FIRST CHILD OF H1.
+console.log(h1.firstElementChild);
+// ADDING STYLE:
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+// GOING UPWARDS : PARENTS
+// THE PARENT NODE RETURNS THE PARENT OF H1.
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// SELECTING SIBLINGS:
+// THE PREVIOUSELEMENT SIBLING WILL RETURN THE SIBLING BEFORE H1, IF NOT, THEN IT RETURNS NULL
+console.log(h1.previousElementSibling);
+// THE NEXT SIBLING WILL RETURN THE NEXT SIBLING CLOSEST TO H1.
+console.log(h1.nextSibling);
+
+// IT WILL RETURN THE COLLECTION OF ALL THE CHILDREN OF PARENT INCLUDING H1 AS WELL AND SIBLINGS OF H1
+console.log(h1.parentElement.children);
+// IT'S AN ITERABLE , SO WE CAN CONVERT IT ARRAY AND THEN USE ARRAY METHODS AS WELL.
+[...h1.parentElement.children].forEach(el => {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
+// SO THAT'S ALL ABOUT DOM TRAVERSING.
+*/
 ///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////
