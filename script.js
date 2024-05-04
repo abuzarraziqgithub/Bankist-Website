@@ -459,3 +459,23 @@ slider()
 // );
 // WHEN THE USER CLICKS ON A CHILD DIV , THE COLOR OF THIER PARENT DIVS ALSO CHANGES , BUT WHEN THE USER CLICKS ON ONE THE PARENT DIVS , IT WILL CHANGED ITSELF.
 // THIS IS THE REAL EXAMPLE OF HOW BUUBLING IN EVENT PROPAGATION WORKS, BECAUSE  BUBBLING IS THE CONCEPT IN WHICH THE TARGET EVENT(CHILD DIV EVENT) MAY HAVE THE EVENT OF THIER PARENT DIV AS WELL, MEANS THE EVENT ON CHILD DIV IS ALSO THE EVENT OF THIER PARENT DIV , AND IT WORKS IN THE LINEAR WAY.
+
+
+// LIFECYCLE DOM EVENTS
+
+document.addEventListener('DOMContentLoaded', function(e)
+{
+  console.log('HTML parsed and DOM tree built!' , e);
+})
+
+window.addEventListener('load' , function(e)
+{
+  console.log('Page fully loaded' , e);
+})
+
+// window.addEventListener('beforeunload', function(e)
+// {
+//   e.preventDefault()
+//   console.log(e);
+//   e.returnValue = ' '
+// })
