@@ -199,17 +199,53 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // IT'S NOT A GOOD PRACTICE, BECAUSE THE WINDOW OBJECT WILL FIRE AGAIN AGAIN WHEN WE SCROLL.
 // IT'S NOT GOOD FOR PERFORMANCE.
 // THIS EVENT OCCUR IN WINDOW SO WE ATTACED THE EVENT TO WINDOW.
-const initialCoords = section1.getBoundingClientRect();
+// const initialCoords = section1.getBoundingClientRect();
 // VALUE OF AT TOP OF THE VIEWPORT WILL BE HIGHER.
-console.log(initialCoords.top);
+// console.log(initialCoords.top);
 window.addEventListener('scroll', function () {
   // WHEN IT REACHES THE POINT WHERE HE VALUE OF TOP BECOME LESS THAN Y
-  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  // if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
   // REMOVE IT IF HE VALUE BECOMES HIGHER, SO WHEN WE SCROLL BACK IT WILL BE REMOVED.
-  else nav.classList.remove('sticky');
+  // else nav.classList.remove('sticky');
 });
 // WE HAVE A BETTER WAY TO APPLY SCROLL SICKY EFFECT.
 
+// STICKY NAVIGATION (A BETTER WAY): THE INTERSECTION OBSERVER API
+// WHAT IS AN OBSERVER API?
+// THIS API ALLOWS OUR CODE TO OBSERVE CHANGES TO THE WAY THAT A CERTAIN TARGET ELEMENT INTERSECTS ANOTHER ELEMENT, OR THE WAY IT INTERSECTS THE VIEWPORT.
+// const obsCallBack = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+
+// const obsOptions = {
+//   root: null,
+//   threshold: 0.2,
+// };
+
+// const observer = new IntersectionObserver(obsCallBack, obsOptions);
+// observer.observe(section1);
+
+// LET'S IMPLEMENT IT ON SCROLLING
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+
+headerObserver.observe(header);
 ///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////
