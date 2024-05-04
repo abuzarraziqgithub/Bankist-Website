@@ -194,6 +194,22 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 // IT WILL UNDO THE OPACITY TO 1
 nav.addEventListener('mouseout', handleHover.bind(1));
 
+// DAY 3
+// STICKY NAVIGATION:
+// IT'S NOT A GOOD PRACTICE, BECAUSE THE WINDOW OBJECT WILL FIRE AGAIN AGAIN WHEN WE SCROLL.
+// IT'S NOT GOOD FOR PERFORMANCE.
+// THIS EVENT OCCUR IN WINDOW SO WE ATTACED THE EVENT TO WINDOW.
+const initialCoords = section1.getBoundingClientRect();
+// VALUE OF AT TOP OF THE VIEWPORT WILL BE HIGHER.
+console.log(initialCoords.top);
+window.addEventListener('scroll', function () {
+  // WHEN IT REACHES THE POINT WHERE HE VALUE OF TOP BECOME LESS THAN Y
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  // REMOVE IT IF HE VALUE BECOMES HIGHER, SO WHEN WE SCROLL BACK IT WILL BE REMOVED.
+  else nav.classList.remove('sticky');
+});
+// WE HAVE A BETTER WAY TO APPLY SCROLL SICKY EFFECT.
+
 ///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////
